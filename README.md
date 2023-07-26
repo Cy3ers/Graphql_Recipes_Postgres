@@ -3,12 +3,12 @@
 The Recipe App is a web application that allows users to create, view, and manage recipes. Users can add new recipes with ingredients and instructions, view a list of existing recipes, and delete recipes they no longer need. The app is built using React, GraphQL, and Apollo Client.
 
 ### Table of Contents:
-- [Features](#Features)
-- [Installation](#Installation)
-- [Usage](#Usage)
-- [Technologies Used](#Technologies-Used)
-- [Contributing](#Contributing)
-- [License](#License)
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Technologies Used](#technologies-used)
+- [Contributing](#contributing)
+- [License](#license)
 
 ## Features
 View a list of recipes with their titles, descriptions, ingredients, and summarized instructions.
@@ -73,11 +73,11 @@ React Icons
 
 Contributions to the Recipe App are welcome! If you find any issues or have suggestions for improvements, please feel free to submit a pull request or open an issue.
 ```bash
-- Fork the repository from the main branch.
-- Create a new branch with a descriptive name for your feature or bug fix.
-- Make your changes and commit them with clear commit messages.
-- Push your branch to your forked repository.
-- Submit a pull request to the main repository.
+# - Fork the repository from the main branch.
+# - Create a new branch with a descriptive name for your feature or bug fix.
+# - Make your changes and commit them with clear commit messages.
+# - Push your branch to your forked repository.
+# - Submit a pull request to the main repository.
 ```
 
 ## License
