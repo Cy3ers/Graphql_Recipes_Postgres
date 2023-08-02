@@ -35,12 +35,7 @@ const HomePage = () => {
         <div className="add-recipe-form">
           <h2>
             Add Recipe
-            <FaTimes
-              style={{ color: 'red', cursor: 'pointer' }}
-              onClick={handleCloseForm}
-              onMouseEnter={(e) => (e.target.style.transform = 'scale(1.10)')}
-              onMouseLeave={(e) => (e.target.style.transform = 'scale(1)')}
-            />
+            <FaTimes className="delete-button" onClick={handleCloseForm} />
           </h2>
           <form onSubmit={handleSubmit}>
             <label>
@@ -116,14 +111,8 @@ const HomePage = () => {
                   </button>
                 ) : (
                   <FaTimes
-                    style={{ color: 'red', cursor: 'pointer' }}
+                    className="delete-button"
                     onClick={() => handleRemoveIngredient(index)}
-                    onMouseEnter={(e) =>
-                      (e.target.style.transform = 'scale(1.10)')
-                    }
-                    onMouseLeave={(e) =>
-                      (e.target.style.transform = 'scale(1)')
-                    }
                   />
                 )}
               </div>

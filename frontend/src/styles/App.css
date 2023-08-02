@@ -226,3 +226,12 @@ body {
 .add-recipe-form .sub-button:hover {
   background-color: #218838;
 }
+
+.delete-button {
+  color: red;
+  cursor: pointer;
+}
+
+.delete-button:hover {
+  transform: scale(1.1);
+}

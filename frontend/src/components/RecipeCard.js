@@ -35,12 +35,7 @@ const RecipeCard = ({ recipe }) => {
         <Link className="expand-recipe" to={`/recipe/${recipe.id}`}>
           {recipe.title}
         </Link>{' '}
-        <FaTimes
-          style={{ color: 'red', cursor: 'pointer' }}
-          onClick={handleDelete}
-          onMouseEnter={(e) => (e.target.style.transform = 'scale(1.10)')}
-          onMouseLeave={(e) => (e.target.style.transform = 'scale(1)')}
-        />
+        <FaTimes className="delete-button" onClick={handleDelete} />
       </h3>
       <p>{recipe.description}</p>
       <ul>
