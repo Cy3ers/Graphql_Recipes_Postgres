@@ -5,20 +5,16 @@ import { FaTimes } from 'react-icons/fa';
 import { RECIPES_QUERY } from '../GQL/queries';
 import useRecipeForm from '../hooks/useRecipeForm';
 import AddForm from './sub-components/AddForm';
+import LoadingSpinner from './sub-components/LoadingSpinner';
+import ErrorPage from './sub-components/ErrorPage';
 
 const HomePage = () => {
   const { loading, error, data } = useQuery(RECIPES_QUERY);
 
   const { showAddForm, handleAddRecipe, handleCloseForm } = useRecipeForm();
 
-  if (loading) {
-    return (
-      <div className="loading-container">
-        <div className="loading-circle"></div>
-      </div>
-    );
-  }
-  if (error) return <p>Error :(</p>;
+  if (loading) return <LoadingSpinner />;
+  if (error) return <ErrorPage />;
 
   return (
     <div className="home-page">

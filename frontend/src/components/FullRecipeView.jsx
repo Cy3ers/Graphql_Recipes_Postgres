@@ -3,6 +3,8 @@ import { useParams, Link } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { GET_RECIPE_QUERY } from '../GQL/queries';
 import '../styles/FullRecipeView.css';
+import LoadingSpinner from './sub-components/LoadingSpinner';
+import ErrorPage from './sub-components/ErrorPage';
 
 const FullRecipeView = () => {
   const { id } = useParams();
@@ -14,14 +16,8 @@ const FullRecipeView = () => {
     return instructions.replace(/\d+\. /g, '\n$&');
   };
 
-  if (loading) {
-    return (
-      <div className="loading-container">
-        <div className="loading-circle"></div>
-      </div>
-    );
-  }
-  if (error) return <p>Error: {error.message}</p>;
+  if (loading) return <LoadingSpinner />;
+  if (error) return <ErrorPage />;
 
   const { recipe } = data;
 
