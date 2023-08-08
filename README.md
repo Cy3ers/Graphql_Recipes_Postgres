@@ -69,6 +69,9 @@ Apollo Client
 React Icons
 > Library for including popular icons in React applications.
 
+React-hook-form
+> Library for managing and validating form inputs in React applications.
+
 ## Contributing
 
 Contributions to the Recipe App are welcome! If you find any issues or have suggestions for improvements, please feel free to submit a pull request or open an issue.

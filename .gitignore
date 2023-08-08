@@ -11,6 +11,9 @@ dist/
 .env.local
 .env.*.local
 
+# Ignore Prettier files
+.prettierignore
+
 # Ignore package-lock.json (for npm) and yarn.lock (for Yarn)
 package-lock.json
 yarn.lock
