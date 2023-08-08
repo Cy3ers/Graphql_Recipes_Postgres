@@ -231,6 +231,13 @@ body {
   margin: 4px 0;
   color: #fff;
   background-color: #444;
+  outline: none;
+  opacity: 75%;
+}
+
+.add-recipe-form input:focus,
+.add-recipe-form textarea:focus {
+  opacity: 100%;
 }
 
 .add-recipe-form textarea {
