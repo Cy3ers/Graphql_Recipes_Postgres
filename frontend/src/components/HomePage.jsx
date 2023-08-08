@@ -9,21 +9,16 @@ const HomePage = () => {
   const { loading, error, data } = useQuery(RECIPES_QUERY);
 
   const {
-    formData,
-    showAddForm,
-    handleChange,
-    handleIngredientChange,
-    handleAddIngredient,
-    handleRemoveIngredient,
+    register,
     handleSubmit,
+    showAddForm,
+    onSubmit,
     handleAddRecipe,
     handleCloseForm,
-  } = useRecipeForm({
-    title: '',
-    description: '',
-    instructions: '',
-    ingredients: [{ name: '', quantity: '', unit: '' }],
-  });
+    fields,
+    append,
+    remove,
+  } = useRecipeForm();
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
@@ -37,82 +32,70 @@ const HomePage = () => {
             Add Recipe
             <FaTimes className="delete-button" onClick={handleCloseForm} />
           </h2>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <label>
               Title:
-              <input
-                type="text"
-                name="title"
-                value={formData.title}
-                onChange={handleChange}
-              />
+              <input type="text" {...register('title', { required: true })} />
             </label>
             <label>
               Description:
               <textarea
-                name="description"
-                value={formData.description}
-                onChange={handleChange}
-                style={{
-                  resize: 'none',
-                  overflowY: 'auto',
-                }}
-              ></textarea>
+                className="text-areas"
+                {...register('description', { required: true })}
+              />
             </label>
             <label>
               Instructions:
               <textarea
-                name="instructions"
-                value={formData.instructions}
-                onChange={handleChange}
-                style={{
-                  resize: 'none',
-                  overflowY: 'auto',
-                }}
-              ></textarea>
+                className="text-areas"
+                {...register('instructions', { required: true })}
+              />
             </label>
             <h3>Ingredients:</h3>
-            {formData.ingredients.map((ingredient, index) => (
+            {fields.map((ingredient, index) => (
               <div key={index} className="ingredient-row">
                 <label>
                   Name:
                   <input
                     type="text"
-                    name="name"
-                    value={ingredient.name}
-                    onChange={(e) => handleIngredientChange(index, e)}
+                    name={`ingredients[${index}].name`}
+                    {...register(`ingredients.${index}.name`, {
+                      required: true,
+                    })}
                   />
                 </label>
                 <label>
                   Quantity:
                   <input
                     type="text"
-                    name="quantity"
-                    value={ingredient.quantity}
-                    onChange={(e) => handleIngredientChange(index, e)}
+                    name={`ingredients[${index}].quantity`}
+                    {...register(`ingredients.${index}.quantity`, {
+                      required: true,
+                    })}
                   />
                 </label>
                 <label>
                   Unit:
                   <input
                     type="text"
-                    name="unit"
-                    value={ingredient.unit}
-                    onChange={(e) => handleIngredientChange(index, e)}
+                    name={`ingredients[${index}].unit`}
+                    {...register(`ingredients.${index}.unit`, {
+                      required: true,
+                    })}
                   />
                 </label>
                 {window.innerWidth <= 767 ? (
                   <button
                     className="remove-button-mobile"
                     type="button"
-                    onClick={() => handleRemoveIngredient(index)}
+                    onClick={() => remove(index)}
                   >
                     Remove
                   </button>
                 ) : (
                   <FaTimes
                     className="delete-button"
-                    onClick={() => handleRemoveIngredient(index)}
+                    onClick={() => remove(index)}
                   />
                 )}
               </div>
@@ -120,7 +103,7 @@ const HomePage = () => {
             <button
               className="add-button"
               type="button"
-              onClick={handleAddIngredient}
+              onClick={() => append({ name: '', quantity: '', unit: '' })}
             >
               +
             </button>

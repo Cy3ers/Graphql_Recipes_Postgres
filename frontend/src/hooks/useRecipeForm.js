@@ -1,66 +1,30 @@
 // useRecipeForm.js
 import { useState } from 'react';
+import { useForm, useFieldArray } from 'react-hook-form';
 import { useCreateRecipeMutation } from './useCreateRecipeMutation';
 
-const useRecipeForm = (initialState) => {
-  const [formData, setFormData] = useState(initialState);
+const useRecipeForm = () => {
+  const { register, handleSubmit, control, reset } = useForm();
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: 'ingredients',
+  });
   const [showAddForm, setShowAddForm] = useState(false);
   const createRecipe = useCreateRecipeMutation();
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: value,
-    }));
-  };
+  const onSubmit = (data) => {
+    const ingredientsWithFloatQuantity = data.ingredients.map((ingredient) => {
+      const parsedQuantity =
+        ingredient.quantity && ingredient.quantity.trim() !== ''
+          ? parseFloat(ingredient.quantity)
+          : 0.0;
+      return {
+        ...ingredient,
+        quantity: parsedQuantity,
+      };
+    });
 
-  const handleIngredientChange = (index, e) => {
-    const { name, value } = e.target;
-    const updatedIngredients = [...formData.ingredients];
-    updatedIngredients[index][name] = value;
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      ingredients: updatedIngredients,
-    }));
-  };
-
-  const handleAddIngredient = () => {
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      ingredients: [
-        ...prevFormData.ingredients,
-        { name: '', quantity: '', unit: '' },
-      ],
-    }));
-  };
-
-  const handleRemoveIngredient = (index) => {
-    const updatedIngredients = [...formData.ingredients];
-    updatedIngredients.splice(index, 1);
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      ingredients: updatedIngredients,
-    }));
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    const ingredientsWithFloatQuantity = formData.ingredients.map(
-      (ingredient) => {
-        const parsedQuantity =
-          ingredient.quantity && ingredient.quantity.trim() !== ''
-            ? parseFloat(ingredient.quantity)
-            : 0.0;
-        return {
-          ...ingredient,
-          quantity: parsedQuantity,
-        };
-      }
-    );
-
-    const { title, description, instructions } = formData;
+    const { title, description, instructions } = data;
     createRecipe({
       variables: {
         title,
@@ -70,7 +34,7 @@ const useRecipeForm = (initialState) => {
       },
     }).then(() => {
       setShowAddForm(false);
-      setFormData({
+      reset({
         title: '',
         description: '',
         instructions: '',
@@ -85,7 +49,7 @@ const useRecipeForm = (initialState) => {
 
   const handleCloseForm = () => {
     setShowAddForm(false);
-    setFormData({
+    reset({
       title: '',
       description: '',
       instructions: '',
@@ -93,21 +57,16 @@ const useRecipeForm = (initialState) => {
     });
   };
 
-  const resetForm = () => {
-    setFormData(initialState);
-  };
-
   return {
-    formData,
-    showAddForm,
-    handleChange,
-    handleIngredientChange,
-    handleAddIngredient,
-    handleRemoveIngredient,
+    register,
     handleSubmit,
+    showAddForm,
+    onSubmit,
     handleAddRecipe,
     handleCloseForm,
-    resetForm,
+    fields,
+    append,
+    remove,
   };
 };
 
