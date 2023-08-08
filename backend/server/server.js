@@ -31,7 +31,6 @@ const typeDefs = `
 
   type Mutation {
     createRecipe(title: String!, description: String!, instructions: String!, ingredients: [IngredientInput!]!): Recipe
-    updateRecipe(id: ID!, title: String, description: String, instructions: String, ingredients: [IngredientInput!]): Recipe
     deleteRecipe(id: ID!): Boolean
   }
 `;
@@ -135,49 +134,6 @@ const resolvers = {
         });
 
         return updatedRecipe;
-      } catch (error) {
-        console.error('Error:', error);
-        throw new Error('Internal server error');
-      }
-    },
-
-    updateRecipe: async (
-      _,
-      { id, title, description, instructions, ingredients }
-    ) => {
-      try {
-        const recipe = await Recipe.findByPk(id, {
-          include: [Ingredient],
-        });
-
-        if (!recipe) {
-          throw new Error('Recipe not found');
-        }
-
-        await recipe.update({
-          title: title || recipe.title,
-          description: description || recipe.description,
-          instructions: instructions || recipe.instructions,
-        });
-
-        if (ingredients) {
-          const createdIngredients = [];
-
-          for (const ingredientInput of ingredients) {
-            const { name, quantity, unit, recipeId } = ingredientInput;
-            const ingredient = await Ingredient.create({
-              name,
-              quantity,
-              unit,
-              recipeId,
-            });
-            createdIngredients.push(ingredient);
-          }
-
-          recipe.ingredients = createdIngredients;
-        }
-
-        return recipe;
       } catch (error) {
         console.error('Error:', error);
         throw new Error('Internal server error');
