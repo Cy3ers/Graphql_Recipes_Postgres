@@ -14,7 +14,13 @@ const FullRecipeView = () => {
     return instructions.replace(/\d+\. /g, '\n$&');
   };
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) {
+    return (
+      <div className="loading-container">
+        <div className="loading-circle"></div>
+      </div>
+    );
+  }
   if (error) return <p>Error: {error.message}</p>;
 
   const { recipe } = data;

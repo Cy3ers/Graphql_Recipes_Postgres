@@ -11,7 +11,13 @@ const HomePage = () => {
 
   const { showAddForm, handleAddRecipe, handleCloseForm } = useRecipeForm();
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) {
+    return (
+      <div className="loading-container">
+        <div className="loading-circle"></div>
+      </div>
+    );
+  }
   if (error) return <p>Error :(</p>;
 
   return (
