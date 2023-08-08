@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const ErrorPage = () => {
   const refreshPage = () => {
@@ -13,6 +14,10 @@ const ErrorPage = () => {
         <p className="reload" onClick={refreshPage}>
           Try Again?
         </p>
+        <p>Or</p>
+        <Link className="reload" to="/">
+          Back to the homepage?
+        </Link>
       </div>
     </div>
   );

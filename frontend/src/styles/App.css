@@ -63,6 +63,7 @@ body {
 
 .reload {
   color: #007bff;
+  text-decoration: none;
 }
 
 .reload:hover {
