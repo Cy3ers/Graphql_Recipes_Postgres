@@ -7,13 +7,18 @@ import useRecipeForm from '../hooks/useRecipeForm';
 import AddForm from './sub-components/AddForm';
 import LoadingSpinner from './sub-components/LoadingSpinner';
 import ErrorPage from './sub-components/ErrorPage';
+import LoadingDelay from './sub-components/LoadingDelay';
 
 const HomePage = () => {
   const { loading, error, data } = useQuery(RECIPES_QUERY);
 
   const { showAddForm, handleAddRecipe, handleCloseForm } = useRecipeForm();
 
-  if (loading) return <LoadingSpinner />;
+  const { isLoading } = LoadingDelay();
+
+  if (isLoading || loading) {
+    return <LoadingSpinner />;
+  }
   if (error) return <ErrorPage />;
 
   return (

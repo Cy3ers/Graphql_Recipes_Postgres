@@ -5,6 +5,7 @@ import { GET_RECIPE_QUERY } from '../GQL/queries';
 import '../styles/FullRecipeView.css';
 import LoadingSpinner from './sub-components/LoadingSpinner';
 import ErrorPage from './sub-components/ErrorPage';
+import LoadingDelay from './sub-components/LoadingDelay';
 
 const FullRecipeView = () => {
   const { id } = useParams();
@@ -12,11 +13,15 @@ const FullRecipeView = () => {
     variables: { id },
   });
 
+  const { isLoading } = LoadingDelay();
+
   const formatInstructions = (instructions) => {
     return instructions.replace(/\d+\. /g, '\n$&');
   };
 
-  if (loading) return <LoadingSpinner />;
+  if (isLoading || loading) {
+    return <LoadingSpinner />;
+  }
   if (error) return <ErrorPage />;
 
   const { recipe } = data;
