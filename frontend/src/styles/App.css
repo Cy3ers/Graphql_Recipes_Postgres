@@ -193,7 +193,10 @@ body {
 }
 
 .add-recipe-form {
+  margin-left: auto;
+  margin-right: auto;
   margin-bottom: 32px;
+  width: 60%;
   padding: 16px;
   border: 1px solid #444;
   border-radius: 8px;
@@ -225,7 +228,7 @@ body {
 .add-recipe-form input,
 .add-recipe-form textarea {
   padding: 8px;
-  border: 1px solid #777;
+  border: none;
   border-radius: 4px;
   box-sizing: border-box;
   width: 100%;
@@ -246,6 +249,9 @@ body {
 }
 
 @media (max-width: 767px) {
+  .add-recipe-form {
+    width: auto;
+  }
   .add-recipe-form .ingredient-row {
     grid-template-columns: 1fr;
     grid-gap: 8px;
