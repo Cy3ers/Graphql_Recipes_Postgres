@@ -113,12 +113,12 @@ body {
 }
 
 .read-more-button {
-  background: none;
+  background: transparent;
   border: none;
   cursor: pointer;
   color: #007bff;
   display: block;
-  margin-top: 8px;
+  padding-top: 8px;
 }
 
 .recipe-card h3 {
